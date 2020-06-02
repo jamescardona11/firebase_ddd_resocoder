@@ -1,10 +1,20 @@
-import 'package:equatable/equatable.dart';
+part of 'sign_in_form_bloc.dart';
 
-abstract class SignInFormState extends Equatable {
-  const SignInFormState();
-}
+@freezed
+abstract class SignInFormState with _$SignInFormState {
+  const factory SignInFormState({
+    @required EmailAddress emailAddress,
+    @required Password password,
+    @required bool showErrorMessages,
+    @required bool isSubmitting,
+    @required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption,
+  }) = _SignInFormState;
 
-class InitialSignInFormState extends SignInFormState {
-  @override
-  List<Object> get props => [];
+  factory SignInFormState.initial() => SignInFormState(
+        emailAddress: EmailAddress(''),
+        password: Password(''),
+        showErrorMessages: false,
+        isSubmitting: false,
+        authFailureOrSuccessOption: none(),
+      );
 }
