@@ -25,7 +25,8 @@ dependencies:
     sdk: flutter
   dartz: ^0.9.1
   freezed_annotation: ^0.7.1
-
+  bloc: ^4.0.0
+  equatable: ^1.2.0
 
 
 
