@@ -22,36 +22,42 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
 
   @override
   Stream<SignInFormState> mapEventToState(SignInFormEvent event) async* {
-    yield* event.map(emailChanged: (e) async* {
-      yield state.copyWith(
-        emailAddress: EmailAddress(e.emailStr),
-        authFailureOrSuccessOption: none(),
-      );
-    }, passwordChanged: (e) async* {
-      yield state.copyWith(
-        password: Password(e.passwordStr),
-        authFailureOrSuccessOption: none(),
-      );
-    }, signInWithGooglePressed: (e) async* {
-      yield state.copyWith(
-        isSubmitting: true,
-        authFailureOrSuccessOption: none(),
-      );
+    yield* event.map(
+      emailChanged: (e) async* {
+        yield state.copyWith(
+          emailAddress: EmailAddress(e.emailStr),
+          authFailureOrSuccessOption: none(),
+        );
+      },
+      passwordChanged: (e) async* {
+        yield state.copyWith(
+          password: Password(e.passwordStr),
+          authFailureOrSuccessOption: none(),
+        );
+      },
+      signInWithGooglePressed: (e) async* {
+        yield state.copyWith(
+          isSubmitting: true,
+          authFailureOrSuccessOption: none(),
+        );
 
-      final failureOrSucess = await _authFacade.signInWithGoogle();
-      yield state.copyWith(
-        isSubmitting: false,
-        authFailureOrSuccessOption: some(failureOrSucess),
-      );
-    }, registerWithEmailAndPasswordPressed: (e) async* {
-      yield* _performActionOnAuthFacadeWithEmailAndPassword(
-        _authFacade.registerWithEmailAndPassword,
-      );
-    }, signInWithEmailAndPasswordPressed: (e) async* {
-      yield* _performActionOnAuthFacadeWithEmailAndPassword(
-        _authFacade.signInWithEmailAndPassword,
-      );
-    });
+        final failureOrSuccess = await _authFacade.signInWithGoogle();
+        yield state.copyWith(
+          isSubmitting: false,
+          authFailureOrSuccessOption: some(failureOrSuccess),
+        );
+      },
+      registerWithEmailAndPasswordPressed: (e) async* {
+        yield* _performActionOnAuthFacadeWithEmailAndPassword(
+          _authFacade.registerWithEmailAndPassword,
+        );
+      },
+      signInWithEmailAndPasswordPressed: (e) async* {
+        yield* _performActionOnAuthFacadeWithEmailAndPassword(
+          _authFacade.signInWithEmailAndPassword,
+        );
+      },
+    );
   }
 
   Stream<SignInFormState> _performActionOnAuthFacadeWithEmailAndPassword(
