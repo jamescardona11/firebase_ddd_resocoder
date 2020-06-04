@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebasedddresocoder/presentation/sign_in/widgets/sign_in_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignPagePage extends StatelessWidget {
+class SignPage extends StatelessWidget {
   static const String pageRoute = 'sign_in_page_route_id';
 
   @override
