@@ -16,27 +16,25 @@ class EmailAddress extends ValueObject<String> {
 
   const EmailAddress._(this.value);
 
-  String getLeftValue() {
-    /*value.fold((l){
-    	l.maybeWhen(orElse: null, auth: (msg) {
-    		msg.map(invalidEmail: null, shortPassword: null);
-	    } );
-    	l.maybeMap(orElse: null, auth: (msg){
-    	
-    	
-	    });
-    	l.when(auth: null, notes: (not){
-    		not.map(exceedingLength: null, empty: null, multiline: null, listToLong: null)
-    		
-	    });
-    	l.map(auth: null, notes: null);
-    	
-    }, (r) => null)*/
-    final vv = value.fold((l) => l.maybeWhen(auth: (a) => 'Invalid Email', orElse: () => null), (_) => null);
-    print('vv -> ${vv}');
-    return value.fold((l) => l.maybeWhen(auth: (a) => 'Invalid Email', orElse: () => null), (_) => null);
-    //l.maybeMap(invalidEmail: (_) => 'Invalid Email', orElse: () => null), (_) => null);
-  }
+//  String getLeftValue() {
+//    /*value.fold((l){
+//    	l.maybeWhen(orElse: null, auth: (msg) {
+//    		msg.map(invalidEmail: null, shortPassword: null);
+//	    } );
+//    	l.maybeMap(orElse: null, auth: (msg){
+//
+//
+//	    });
+//    	l.when(auth: null, notes: (not){
+//    		not.map(exceedingLength: null, empty: null, multiline: null, listToLong: null)
+//
+//	    });
+//    	l.map(auth: null, notes: null);
+//
+//    }, (r) => null)*/
+//    //return value.fold((l) => l.maybeWhen(auth: (a) => 'Invalid Email2', orElse: () => null), (_) => null);
+//    //l.maybeMap(invalidEmail: (_) => 'Invalid Email', orElse: () => null), (_) => null);
+//  }
 }
 
 class Password extends ValueObject<String> {

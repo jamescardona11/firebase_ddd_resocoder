@@ -12,7 +12,7 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
 @freezed
 abstract class AuthValueFailure<T> with _$AuthValueFailure<T> {
   const factory AuthValueFailure.invalidEmail({
-    @required T failedValue,
+    @required T failedValue1,
   }) = InvalidEmail<T>;
   const factory AuthValueFailure.shortPassword({
     @required T failedValue,

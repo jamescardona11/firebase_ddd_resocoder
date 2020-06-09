@@ -16,6 +16,12 @@ abstract class ValueObject<T> {
     return value.fold((f) => throw UnexpectedValueError(f), id);
   }
 
+  T getFailedValue(T msg) {
+    return value.fold(
+        (l) => l.maybeWhen(auth: (a) => a.maybeMap(orElse: () => null, invalidEmail: (_) => msg), orElse: () => null), (_) => null);
+    //return value.fold((l) => l.maybeWhen(auth: (a) => a.maybeMap(orElse: ()=> null, invalidEmail: (_)=> msg), orElse: () => null), (_) => null);
+  }
+
   bool isValid() => value.isRight();
 
   @override
