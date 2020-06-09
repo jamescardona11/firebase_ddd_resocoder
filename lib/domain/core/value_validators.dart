@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebasedddresocoder/domain/core/failures.dart';
 import 'package:kt_dart/collection.dart';
 
-Either<ValueFailure<String>, String> maxStringLength(String input, int maxLength) {
+Either<ValueFailure<String>, String> validateMaxStringLength(String input, int maxLength) {
   if (input.length <= maxLength) {
     return right(input);
   } else {
