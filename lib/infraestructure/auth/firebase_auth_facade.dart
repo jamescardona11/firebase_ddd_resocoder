@@ -5,10 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import './firebase_user_mapper.dart';
-
 import 'package:firebasedddresocoder/domain/auth/user.dart';
-import 'package:firebasedddresocoder/domain/core/value_objects.dart';
-
 import 'package:firebasedddresocoder/domain/auth/i_auth_facade.dart';
 import 'package:firebasedddresocoder/domain/auth/value_objects.dart';
 import 'package:firebasedddresocoder/domain/auth/auth_failure.dart';
@@ -19,6 +16,11 @@ class FirebaseAuthFacade implements IAuthFacade {
   final GoogleSignIn _googleSignIn;
 
   FirebaseAuthFacade(this._firebaseAuth, this._googleSignIn);
+
+  @override
+  Future<Option<User>> getSignedInUser() => _firebaseAuth.currentUser().then((firebaseUser) => optionOf(
+        firebaseUser?.toDomain(),
+      ));
 
   @override
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword({
@@ -90,10 +92,6 @@ class FirebaseAuthFacade implements IAuthFacade {
       return left(const AuthFailure.serverError());
     }
   }
-
-  @override
-  Future<Option<User>> getSignedInUser() =>
-      _firebaseAuth.currentUser().then((firebaseUser) => optionOf(firebaseUser?.toDomain()));
 
   @override
   Future<void> signOut() {

@@ -5,6 +5,6 @@ import 'package:firebasedddresocoder/presentation/splash/splash_page.dart';
 @MaterialAutoRouter(generateNavigationHelperExtension: true)
 class $Router {
   @initial
-  SignPage signInPage;
   SplashPage splashPage;
+  SignPage signInPage;
 }
