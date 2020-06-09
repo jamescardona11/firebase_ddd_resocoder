@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:firebasedddresocoder/application/auth/sign_in_form/sign_in_form_bloc.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class SignInForm extends StatelessWidget {
         return Form(
           autovalidate: state.showErrorMessages,
           child: ListView(
+            padding: const EdgeInsets.all(8),
             children: <Widget>[
               const Text(
                 ' 📝',
@@ -82,7 +84,11 @@ class SignInForm extends StatelessWidget {
                   'SIGN IN WITH GOOGLE',
                   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
-              )
+              ),
+              if (state.isSubmitting) ...[
+                const SizedBox(height: 8),
+                const LinearProgressIndicator(),
+              ]
             ],
           ),
         );
