@@ -26,6 +26,23 @@ abstract class ValueObject<T> {
     );
   }
 
+  T get failedValue {
+    return value.fold(
+      (l) => l.when(
+        auth: (a) => a.failedValue,
+        notes: (p) => p.failedValue,
+      ),
+      (r) => null,
+    );
+  }
+
+  Either<ValueFailure<dynamic>, Unit> get failureOrUnit {
+    return value.fold(
+      (l) => left(l),
+      (r) => right(unit),
+    );
+  }
+
   bool isValid() => value.isRight();
 
   @override

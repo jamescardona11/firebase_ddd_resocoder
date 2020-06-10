@@ -45,7 +45,7 @@ class SignInForm extends StatelessWidget {
                 decoration: const InputDecoration(prefixIcon: Icon(Icons.email), labelText: 'Email'),
                 autocorrect: false,
                 onChanged: (value) => context.bloc<SignInFormBloc>().add(SignInFormEvent.emailChanged(value)),
-                validator: (_) => context.bloc<SignInFormBloc>().state.emailAddress.getFailedValue(),
+                validator: (_) => context.bloc<SignInFormBloc>().state.emailAddress.failedValue,
               ),
               const SizedBox(height: 8),
               TextFormField(
