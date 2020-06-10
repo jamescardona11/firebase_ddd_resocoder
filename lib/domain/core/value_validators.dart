@@ -39,7 +39,7 @@ Either<ValueFailure<String>, String> validateEmailAddress(String input) {
   if (RegExp(emailRegex).hasMatch(input)) {
     return right(input);
   } else {
-    return left(ValueFailure.auth(AuthValueFailure.invalidEmail(failedValue1: _validateInputNull(input, 'Invalid Email'))));
+    return left(ValueFailure.auth(AuthValueFailure.invalidEmail(failedValue: _validateInputNull(input, 'Invalid Email'))));
   }
 }
 

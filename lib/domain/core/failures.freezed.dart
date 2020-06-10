@@ -329,9 +329,9 @@ abstract class _Notes<T> implements ValueFailure<T> {
 class _$AuthValueFailureTearOff {
   const _$AuthValueFailureTearOff();
 
-  InvalidEmail<T> invalidEmail<T>({@required T failedValue1}) {
+  InvalidEmail<T> invalidEmail<T>({@required T failedValue}) {
     return InvalidEmail<T>(
-      failedValue1: failedValue1,
+      failedValue: failedValue,
     );
   }
 
@@ -346,14 +346,16 @@ class _$AuthValueFailureTearOff {
 const $AuthValueFailure = _$AuthValueFailureTearOff();
 
 mixin _$AuthValueFailure<T> {
+  T get failedValue;
+
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result invalidEmail(T failedValue1),
+    @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result invalidEmail(T failedValue1),
+    Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
     @required Result orElse(),
   });
@@ -368,12 +370,15 @@ mixin _$AuthValueFailure<T> {
     Result shortPassword(ShortPassword<T> value),
     @required Result orElse(),
   });
+
+  $AuthValueFailureCopyWith<T, AuthValueFailure<T>> get copyWith;
 }
 
 abstract class $AuthValueFailureCopyWith<T, $Res> {
   factory $AuthValueFailureCopyWith(
           AuthValueFailure<T> value, $Res Function(AuthValueFailure<T>) then) =
       _$AuthValueFailureCopyWithImpl<T, $Res>;
+  $Res call({T failedValue});
 }
 
 class _$AuthValueFailureCopyWithImpl<T, $Res>
@@ -383,13 +388,25 @@ class _$AuthValueFailureCopyWithImpl<T, $Res>
   final AuthValueFailure<T> _value;
   // ignore: unused_field
   final $Res Function(AuthValueFailure<T>) _then;
+
+  @override
+  $Res call({
+    Object failedValue = freezed,
+  }) {
+    return _then(_value.copyWith(
+      failedValue:
+          failedValue == freezed ? _value.failedValue : failedValue as T,
+    ));
+  }
 }
 
-abstract class $InvalidEmailCopyWith<T, $Res> {
+abstract class $InvalidEmailCopyWith<T, $Res>
+    implements $AuthValueFailureCopyWith<T, $Res> {
   factory $InvalidEmailCopyWith(
           InvalidEmail<T> value, $Res Function(InvalidEmail<T>) then) =
       _$InvalidEmailCopyWithImpl<T, $Res>;
-  $Res call({T failedValue1});
+  @override
+  $Res call({T failedValue});
 }
 
 class _$InvalidEmailCopyWithImpl<T, $Res>
@@ -404,11 +421,11 @@ class _$InvalidEmailCopyWithImpl<T, $Res>
 
   @override
   $Res call({
-    Object failedValue1 = freezed,
+    Object failedValue = freezed,
   }) {
     return _then(InvalidEmail<T>(
-      failedValue1:
-          failedValue1 == freezed ? _value.failedValue1 : failedValue1 as T,
+      failedValue:
+          failedValue == freezed ? _value.failedValue : failedValue as T,
     ));
   }
 }
@@ -416,15 +433,15 @@ class _$InvalidEmailCopyWithImpl<T, $Res>
 class _$InvalidEmail<T>
     with DiagnosticableTreeMixin
     implements InvalidEmail<T> {
-  const _$InvalidEmail({@required this.failedValue1})
-      : assert(failedValue1 != null);
+  const _$InvalidEmail({@required this.failedValue})
+      : assert(failedValue != null);
 
   @override
-  final T failedValue1;
+  final T failedValue;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AuthValueFailure<$T>.invalidEmail(failedValue1: $failedValue1)';
+    return 'AuthValueFailure<$T>.invalidEmail(failedValue: $failedValue)';
   }
 
   @override
@@ -432,21 +449,21 @@ class _$InvalidEmail<T>
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'AuthValueFailure<$T>.invalidEmail'))
-      ..add(DiagnosticsProperty('failedValue1', failedValue1));
+      ..add(DiagnosticsProperty('failedValue', failedValue));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is InvalidEmail<T> &&
-            (identical(other.failedValue1, failedValue1) ||
+            (identical(other.failedValue, failedValue) ||
                 const DeepCollectionEquality()
-                    .equals(other.failedValue1, failedValue1)));
+                    .equals(other.failedValue, failedValue)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue1);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
 
   @override
   $InvalidEmailCopyWith<T, InvalidEmail<T>> get copyWith =>
@@ -455,24 +472,24 @@ class _$InvalidEmail<T>
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result invalidEmail(T failedValue1),
+    @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
   }) {
     assert(invalidEmail != null);
     assert(shortPassword != null);
-    return invalidEmail(failedValue1);
+    return invalidEmail(failedValue);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result invalidEmail(T failedValue1),
+    Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (invalidEmail != null) {
-      return invalidEmail(failedValue1);
+      return invalidEmail(failedValue);
     }
     return orElse();
   }
@@ -504,16 +521,20 @@ class _$InvalidEmail<T>
 }
 
 abstract class InvalidEmail<T> implements AuthValueFailure<T> {
-  const factory InvalidEmail({@required T failedValue1}) = _$InvalidEmail<T>;
+  const factory InvalidEmail({@required T failedValue}) = _$InvalidEmail<T>;
 
-  T get failedValue1;
+  @override
+  T get failedValue;
+  @override
   $InvalidEmailCopyWith<T, InvalidEmail<T>> get copyWith;
 }
 
-abstract class $ShortPasswordCopyWith<T, $Res> {
+abstract class $ShortPasswordCopyWith<T, $Res>
+    implements $AuthValueFailureCopyWith<T, $Res> {
   factory $ShortPasswordCopyWith(
           ShortPassword<T> value, $Res Function(ShortPassword<T>) then) =
       _$ShortPasswordCopyWithImpl<T, $Res>;
+  @override
   $Res call({T failedValue});
 }
 
@@ -580,7 +601,7 @@ class _$ShortPassword<T>
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result invalidEmail(T failedValue1),
+    @required Result invalidEmail(T failedValue),
     @required Result shortPassword(T failedValue),
   }) {
     assert(invalidEmail != null);
@@ -591,7 +612,7 @@ class _$ShortPassword<T>
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result invalidEmail(T failedValue1),
+    Result invalidEmail(T failedValue),
     Result shortPassword(T failedValue),
     @required Result orElse(),
   }) {
@@ -631,7 +652,9 @@ class _$ShortPassword<T>
 abstract class ShortPassword<T> implements AuthValueFailure<T> {
   const factory ShortPassword({@required T failedValue}) = _$ShortPassword<T>;
 
+  @override
   T get failedValue;
+  @override
   $ShortPasswordCopyWith<T, ShortPassword<T>> get copyWith;
 }
 
