@@ -18,9 +18,10 @@ class FirebaseAuthFacade implements IAuthFacade {
   FirebaseAuthFacade(this._firebaseAuth, this._googleSignIn);
 
   @override
-  Future<Option<User>> getSignedInUser() => _firebaseAuth.currentUser().then((firebaseUser) => optionOf(
-        firebaseUser?.toDomain(),
-      ));
+  Future<Option<User>> getSignedInUser() =>
+      _firebaseAuth.currentUser().then((firebaseUser) => optionOf(
+            firebaseUser?.toDomain(),
+          ));
 
   @override
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword({
@@ -66,6 +67,7 @@ class FirebaseAuthFacade implements IAuthFacade {
         //print(e.message);
         return left(const AuthFailure.invalidEmailAndPasswordCombination());
       } else {
+        print(e.code);
         return left(const AuthFailure.serverError());
       }
     }
