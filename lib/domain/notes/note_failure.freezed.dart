@@ -15,6 +15,10 @@ class _$NoteFailureTearOff {
   _Unexpected unexpected() {
     return const _Unexpected();
   }
+
+  _PermissionDenied permissionDenied() {
+    return const _PermissionDenied();
+  }
 }
 
 // ignore: unused_element
@@ -24,19 +28,23 @@ mixin _$NoteFailure {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result unexpected(),
+    @required Result permissionDenied(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result unexpected(),
+    Result permissionDenied(),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result unexpected(_Unexpected value),
+    @required Result permissionDenied(_PermissionDenied value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result unexpected(_Unexpected value),
+    Result permissionDenied(_PermissionDenied value),
     @required Result orElse(),
   });
 }
@@ -97,8 +105,10 @@ class _$_Unexpected with DiagnosticableTreeMixin implements _Unexpected {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result unexpected(),
+    @required Result permissionDenied(),
   }) {
     assert(unexpected != null);
+    assert(permissionDenied != null);
     return unexpected();
   }
 
@@ -106,6 +116,7 @@ class _$_Unexpected with DiagnosticableTreeMixin implements _Unexpected {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result unexpected(),
+    Result permissionDenied(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -119,8 +130,10 @@ class _$_Unexpected with DiagnosticableTreeMixin implements _Unexpected {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result unexpected(_Unexpected value),
+    @required Result permissionDenied(_PermissionDenied value),
   }) {
     assert(unexpected != null);
+    assert(permissionDenied != null);
     return unexpected(this);
   }
 
@@ -128,6 +141,7 @@ class _$_Unexpected with DiagnosticableTreeMixin implements _Unexpected {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result unexpected(_Unexpected value),
+    Result permissionDenied(_PermissionDenied value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -140,4 +154,101 @@ class _$_Unexpected with DiagnosticableTreeMixin implements _Unexpected {
 
 abstract class _Unexpected implements NoteFailure {
   const factory _Unexpected() = _$_Unexpected;
+}
+
+abstract class _$PermissionDeniedCopyWith<$Res> {
+  factory _$PermissionDeniedCopyWith(
+          _PermissionDenied value, $Res Function(_PermissionDenied) then) =
+      __$PermissionDeniedCopyWithImpl<$Res>;
+}
+
+class __$PermissionDeniedCopyWithImpl<$Res>
+    extends _$NoteFailureCopyWithImpl<$Res>
+    implements _$PermissionDeniedCopyWith<$Res> {
+  __$PermissionDeniedCopyWithImpl(
+      _PermissionDenied _value, $Res Function(_PermissionDenied) _then)
+      : super(_value, (v) => _then(v as _PermissionDenied));
+
+  @override
+  _PermissionDenied get _value => super._value as _PermissionDenied;
+}
+
+class _$_PermissionDenied
+    with DiagnosticableTreeMixin
+    implements _PermissionDenied {
+  const _$_PermissionDenied();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'NoteFailure.permissionDenied()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'NoteFailure.permissionDenied'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _PermissionDenied);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result unexpected(),
+    @required Result permissionDenied(),
+  }) {
+    assert(unexpected != null);
+    assert(permissionDenied != null);
+    return permissionDenied();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result unexpected(),
+    Result permissionDenied(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (permissionDenied != null) {
+      return permissionDenied();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result unexpected(_Unexpected value),
+    @required Result permissionDenied(_PermissionDenied value),
+  }) {
+    assert(unexpected != null);
+    assert(permissionDenied != null);
+    return permissionDenied(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result unexpected(_Unexpected value),
+    Result permissionDenied(_PermissionDenied value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (permissionDenied != null) {
+      return permissionDenied(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PermissionDenied implements NoteFailure {
+  const factory _PermissionDenied() = _$_PermissionDenied;
 }
