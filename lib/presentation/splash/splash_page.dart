@@ -14,9 +14,15 @@ class SplashPage extends StatelessWidget {
         state.when(
           initial: () {},
           authenticated: () {
-            print('I am authenticated');
+            ExtendedNavigator.of(context).pushAndRemoveUntil(
+              Routes.noteOverviewPage,
+              (route) => false,
+            );
           },
-          unauthenticated: () => ExtendedNavigator.of(context).pushReplacementNamed(Routes.signInPage),
+          unauthenticated: () => ExtendedNavigator.of(context).pushAndRemoveUntil(
+            Routes.signPage,
+            (route) => false,
+          ),
         );
       },
       child: const Scaffold(
