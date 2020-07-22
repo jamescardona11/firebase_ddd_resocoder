@@ -20,10 +20,7 @@ class ErrorNoteCard extends StatelessWidget {
             Text(
               'Invalid note, please contact support',
               textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .primaryTextTheme
-                  .bodyText2
-                  .copyWith(fontSize: 18),
+              style: Theme.of(context).primaryTextTheme.bodyText2.copyWith(fontSize: 18),
             ),
             const SizedBox(height: 2),
             Text(
