@@ -1,4 +1,5 @@
 import 'package:firebasedddresocoder/application/notes/note_watcher/note_watcher_bloc.dart';
+import 'package:firebasedddresocoder/presentation/note/note_overview/widget/critical_failure_display_widget.dart';
 import 'package:firebasedddresocoder/presentation/note/note_overview/widget/error_note_card_widget.dart';
 import 'package:firebasedddresocoder/presentation/note/note_overview/widget/note_card_widget.dart';
 import 'package:flutter/material.dart';
@@ -27,11 +28,7 @@ class NotesOverviewBody extends StatelessWidget {
               },
             );
           },
-          loadFailure: (_) => Container(
-            width: 200,
-            height: 200,
-            color: Colors.yellow,
-          ),
+          loadFailure: (failure) => CriticalFailureDisplay(failure: failure),
         );
       },
     );
