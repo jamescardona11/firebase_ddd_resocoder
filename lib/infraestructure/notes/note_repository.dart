@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebasedddresocoder/domain/auth/i_auth_facade.dart';
+import 'package:firebasedddresocoder/domain/core/errors.dart';
 import 'package:firebasedddresocoder/domain/notes/i_note_repository.dart';
 import 'package:firebasedddresocoder/domain/notes/note.dart';
 import 'package:firebasedddresocoder/domain/notes/note_failure.dart';
 import 'package:firebasedddresocoder/infraestructure/core/firestore_helpers.dart';
 import 'package:firebasedddresocoder/infraestructure/notes/note_dtos.dart';
+import 'package:firebasedddresocoder/injection.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
@@ -22,6 +26,22 @@ class NoteRepository implements INoteRepository {
   @override
   Stream<Either<NoteFailure, KtList<Note>>> watchAll() async* {
     final userDoc = await _firestore.userDocument();
+    /*yield* userDoc.noteCollection
+        .orderBy('serverTimeStamp', descending: true)
+        .snapshots()
+        .map(
+          (snapshot) => right<NoteFailure, KtList<Note>>(
+            snapshot.documents.map((doc) => NoteDto.fromFirestore(doc).toDomain()).toImmutableList(),
+          ),
+        )
+        .onErrorReturnWith((e) {
+      if (e is PlatformException && e.message.contains('PERMISSION_DENIED')) {
+        return left(const NoteFailure.permissionDenied());
+      } else {
+        // log.error(e.toString());
+        return left(const NoteFailure.unexpected());
+      }
+    });*/
     yield* userDoc.noteCollection
         .orderBy(
           'serverTimeStamp',
@@ -29,20 +49,24 @@ class NoteRepository implements INoteRepository {
         )
         .snapshots()
         .map(
-          (snapshot) => right<NoteFailure, KtList<Note>>(KtList.from(
-            snapshot.documents.map(
-              (doc) => NoteDto.fromFirestore(doc).toDomain(),
-            ),
-          )),
-        )
-        .onErrorReturnWith((e) {
-      if (e is PlatformException && e.message.contains('PERMISSION_DENIED')) {
-        return left(const NoteFailure.permissionDenied());
-      } else {
-        //log.error(e.toString());
-        return left(const NoteFailure.unexpected());
-      }
-    });
+      (snapshot) {
+        //debugPrint('Documents: ${snapshot.documents}');
+        return right<NoteFailure, KtList<Note>>(KtList.from(
+          snapshot.documents.map(
+            (doc) => NoteDto.fromFirestore(doc).toDomain(),
+          ),
+        ));
+      },
+    ).onErrorReturnWith(
+      (e) {
+        if (e is PlatformException && e.message.contains('PERMISSION_DENIED')) {
+          return left(const NoteFailure.permissionDenied());
+        } else {
+          //log.error(e.toString());
+          return left(const NoteFailure.unexpected());
+        }
+      },
+    );
   }
 
   @override

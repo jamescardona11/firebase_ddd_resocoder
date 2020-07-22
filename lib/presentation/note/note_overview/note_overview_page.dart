@@ -3,6 +3,7 @@ import 'package:firebasedddresocoder/application/auth/bloc/auth_bloc.dart';
 import 'package:firebasedddresocoder/application/notes/note_actor/note_actor_bloc.dart';
 import 'package:firebasedddresocoder/application/notes/note_watcher/note_watcher_bloc.dart';
 import 'package:firebasedddresocoder/injection.dart';
+import 'package:firebasedddresocoder/presentation/note/note_overview/widget/note_overview_body_widget.dart';
 import 'package:firebasedddresocoder/presentation/routes/router.gr.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class NoteOverviewPage extends StatelessWidget {
               state.maybeMap(
                 deletedFailure: (state) {
                   FlushbarHelper.createError(
-                    duration: Duration(milliseconds: 5000),
+                    duration: const Duration(milliseconds: 5000),
                     message: state.noteFailure.when(
                       unexpected: () => 'Unexpected error occurred while deleting, please try again',
                       permissionDenied: () => 'insufficient permissions',
@@ -71,9 +72,7 @@ class NoteOverviewPage extends StatelessWidget {
             onPressed: () {},
             child: const Icon(Icons.add),
           ),
-          body: Center(
-            child: const Text('NoteOverView Page'),
-          ),
+          body: NotesOverviewBody(),
         ),
       ),
     );
