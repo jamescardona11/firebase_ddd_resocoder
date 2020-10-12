@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:firebasedddresocoder/application/notes/note_actor/note_actor_bloc.dart';
 import 'package:firebasedddresocoder/domain/notes/note.dart';
 import 'package:firebasedddresocoder/domain/notes/todo_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:firebasedddresocoder/presentation/routes/router.gr.dart';
 
 class NoteCardWidget extends StatelessWidget {
   final Note note;
@@ -21,7 +23,9 @@ class NoteCardWidget extends StatelessWidget {
       //! For showcasing the effects of clipBehavior
       // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          ExtendedNavigator.of(context).pushNoteFormPage(editedNote: note);
+        },
         onLongPress: () {
           final noteActorBloc = context.bloc<NoteActorBloc>();
           showDialog(

@@ -67,7 +67,9 @@ class NoteOverviewPage extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              ExtendedNavigator.of(context).pushNoteFormPage(editedNote: null);
+            },
             child: const Icon(Icons.add),
           ),
           body: NotesOverviewBody(),
