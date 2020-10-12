@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebasedddresocoder/application/auth/bloc/auth_bloc.dart';
 import 'package:firebasedddresocoder/injection.dart';
-import 'package:firebasedddresocoder/presentation/routes/router.gr.dart';
+import 'package:firebasedddresocoder/presentation/routes/router.gr.dart' as router;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,7 +31,7 @@ class AppWidget extends StatelessWidget {
         ),
         //onGenerateRoute: Router(),
         builder: ExtendedNavigator(
-          router: Router(),
+          router: router.Router(),
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:firebasedddresocoder/application/notes/note_actor/note_actor_blo
 import 'package:firebasedddresocoder/application/notes/note_watcher/note_watcher_bloc.dart';
 import 'package:firebasedddresocoder/injection.dart';
 import 'package:firebasedddresocoder/presentation/note/note_overview/widget/note_overview_body_widget.dart';
+import 'package:firebasedddresocoder/presentation/note/note_overview/widget/uncompleted_switch.dart';
 import 'package:firebasedddresocoder/presentation/routes/router.gr.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
@@ -62,10 +63,7 @@ class NoteOverviewPage extends StatelessWidget {
               },
             ),
             actions: [
-              IconButton(
-                icon: const Icon(Icons.indeterminate_check_box),
-                onPressed: () {},
-              ),
+              UnCompletedSwitch(),
             ],
           ),
           floatingActionButton: FloatingActionButton(
