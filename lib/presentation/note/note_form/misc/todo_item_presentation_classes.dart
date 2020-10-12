@@ -1,10 +1,17 @@
 import 'package:firebasedddresocoder/domain/core/value_objects.dart';
 import 'package:firebasedddresocoder/domain/notes/todo_item.dart';
 import 'package:firebasedddresocoder/domain/notes/value_object_note.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:kt_dart/kt.dart';
+
 import 'package:meta/meta.dart';
 
 part 'todo_item_presentation_classes.freezed.dart';
+
+class FormTodos extends ValueNotifier<KtList<TodoItemPrimitive>> {
+  FormTodos() : super(emptyList<TodoItemPrimitive>());
+}
 
 @freezed
 abstract class TodoItemPrimitive with _$TodoItemPrimitive {
