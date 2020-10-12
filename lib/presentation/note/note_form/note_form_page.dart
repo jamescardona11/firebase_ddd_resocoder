@@ -39,7 +39,7 @@ class NoteFormPage extends StatelessWidget {
                 (failure) {
                   FlushbarHelper.createError(
                     message: failure.map(
-                      insufficientPermission: (_) => 'Insufficient permissions ❌',
+                      permissionDenied: (_) => 'Insufficient permissions ❌',
                       unableToUpdate: (_) => "Couldn't update the note. Was it deleted from another device?",
                       unexpected: (_) => 'Unexpected error occured, please contact support.',
                     ),
@@ -47,7 +47,7 @@ class NoteFormPage extends StatelessWidget {
                 },
                 (_) {
                   ExtendedNavigator.of(context).popUntil(
-                    (route) => route.settings.name == Routes.notesOverviewPage,
+                    (route) => route.settings.name == Routes.noteOverviewPage,
                   );
                 },
               );

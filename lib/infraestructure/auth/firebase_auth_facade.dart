@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import './firebase_user_mapper.dart';
@@ -18,9 +18,7 @@ class FirebaseAuthFacade implements IAuthFacade {
   FirebaseAuthFacade(this._firebaseAuth, this._googleSignIn);
 
   @override
-  Future<Option<User>> getSignedInUser() => _firebaseAuth.currentUser().then((firebaseUser) => optionOf(
-        firebaseUser?.toDomain(),
-      ));
+  Option<User> getSignedInUser() => optionOf(_firebaseAuth.currentUser?.toDomain());
 
   @override
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword({
@@ -37,7 +35,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       );
 
       return right(unit);
-    } on PlatformException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'ERROR_EMAIL_ALREADY_IN_USER') {
         return left(const AuthFailure.emailAlreadyInUse());
       } else {
@@ -62,7 +60,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       );
 
       return right(unit);
-    } on PlatformException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'ERROR_WRONG_PASSWORD' || e.code == 'ERROR_USER_NOT_FOUND') {
         //print(e.message);
         return left(const AuthFailure.invalidEmailAndPasswordCombination());
@@ -81,7 +79,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       }
 
       final googleAuthentication = await googleUser.authentication;
-      final authCredential = GoogleAuthProvider.getCredential(
+      final authCredential = GoogleAuthProvider.credential(
         idToken: googleAuthentication.idToken,
         accessToken: googleAuthentication.accessToken,
       );
@@ -89,7 +87,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       await _firebaseAuth.signInWithCredential(authCredential);
 
       return right(unit);
-    } on PlatformException catch (_) {
+    } on FirebaseAuthException catch (_) {
       return left(const AuthFailure.serverError());
     }
   }
